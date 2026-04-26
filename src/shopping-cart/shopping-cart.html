@@ -1,0 +1,16 @@
+<table>
+    <tbody>
+        @for (prod of myProducts(); track prod.id){
+            <tr>
+                <td><img alt=""></td>
+                <td>{{prod.name}}</td>
+                <td>
+                    <button (click)="increaseQuantity(prod)" class="btn">+</button>
+                    <button (click)="decreaseQuantity(prod)" class="btn">-</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+
+</table>

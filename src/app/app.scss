@@ -1,0 +1,41 @@
+.navbar, footer{
+    background-color: rgba(82, 93, 128, 0.31);
+    display: flex;
+    align-items: center;
+}
+
+.navbar #cart-icon {
+    text-decoration: none;
+    color: black;
+    margin-right: 10px;
+}
+
+footer {
+    justify-content: center;
+}
+
+footer p {
+    color: black;
+    font-weight: bold;
+    font-size: large;
+    margin: 0px;
+}
+
+.navbar-brand {
+    color: rgb(11, 9, 9);
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.navbar-brand span {
+    font-weight: bold;
+    font-size: xx-large;
+    padding-left: 8px;
+}
+
+
+@media (width < 768px){
+    
+    
+}

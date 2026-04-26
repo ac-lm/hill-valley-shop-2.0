@@ -1,0 +1,17 @@
+<section class="on-sale">
+    @for (p of products; track p.id){
+        <div class="card">
+            <div class="image-wrapper" [style.--bg-image]="'url(' + p.image + ')'">
+                <img class="card-img-top img-fluid" src={{p.image}} alt="Card image cap">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{p.name}}</h5>
+                <p class="card-text">{{p.price | currency:'USD':'symbol':'1.2-2':'en'}}</p>
+                <div class="btns-wrapper">
+                    <button (click)="addToCart(p)" class="btn btn-primary">Add to cart</button>
+                    <button class="btn btn-primary">View details</button>
+                </div>
+            </div>
+        </div>
+    }
+</section>
