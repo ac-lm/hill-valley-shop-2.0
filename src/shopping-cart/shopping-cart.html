@@ -1,16 +1,85 @@
-<table>
-    <tbody>
-        @for (prod of myProducts(); track prod.id){
-            <tr>
-                <td><img alt=""></td>
-                <td>{{prod.name}}</td>
-                <td>
-                    <button (click)="increaseQuantity(prod)" class="btn">+</button>
-                    <button (click)="decreaseQuantity(prod)" class="btn">-</button>
-                </td>
-            </tr>
-        }
-    </tbody>
+<div class="cart-container">
+    <div class="cart-header">
+        <h1>Shopping Cart</h1>
+        <span class="item-count" *ngIf="!isCartEmpty()">{{ cartItemCount() }} items</span>
+    </div>
 
+    @if (isCartEmpty()) {
+        <div class="empty-state">
+            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+            </svg>
+            <h2>Your cart is empty</h2>
+            <p>Add some products to get started!</p>
+            <a href="/" class="btn-continue-shopping">Continue Shopping</a>
+        </div>
+    } @else {
+        <div class="cart-content">
+            <div class="cart-items">
+                @for (prod of productSet(); track prod.id) {
+                    <div class="cart-item-card" [@fadeInOut]>
+                        <div class="item-image">
+                            <img [src]="prod.image" [alt]="prod.name" class="product-img">
+                        </div>
 
-</table>
+                        <div class="item-details">
+                            <h3 class="item-name">{{ prod.name }}</h3>
+                            <p class="item-price">{{ prod.price | currency: 'USD': 'symbol': '1.2-2': 'en' }}</p>
+                        </div>
+
+                        <div class="item-quantity">
+                            <button class="qty-btn" (click)="decreaseQuantity(prod)" [disabled]="prod.quantity === 1">
+                                <span>−</span>
+                            </button>
+                            <span class="qty-value">{{ prod.quantity }}</span>
+                            <button class="qty-btn" (click)="increaseQuantity(prod)">
+                                <span>+</span>
+                            </button>
+                        </div>
+
+                        <div class="item-subtotal">
+                            <p class="subtotal-label">Subtotal</p>
+                            <p class="subtotal-value">{{ ((prod.price || 0) * (prod.quantity || 1)) | currency: 'USD': 'symbol': '1.2-2': 'en' }}</p>
+                        </div>
+
+                        <button class="btn-remove" (click)="removeAll(prod)" title="Remove item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                            </svg>
+                        </button>
+                    </div>
+                }
+            </div>
+
+            <div class="cart-summary">
+                <h2>Order Summary</h2>
+
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>{{ cartTotal() | currency: 'USD': 'symbol': '1.2-2': 'en' }}</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span class="free">FREE</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Tax</span>
+                    <span>{{ (cartTotal() * 0.08) | currency: 'USD': 'symbol': '1.2-2': 'en' }}</span>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span>{{ (cartTotal() * 1.08) | currency: 'USD': 'symbol': '1.2-2': 'en' }}</span>
+                </div>
+
+                <button class="btn-checkout">Proceed to Checkout</button>
+                <a href="/" class="btn-continue">Continue Shopping</a>
+            </div>
+        </div>
+    }
+</div>

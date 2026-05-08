@@ -1,41 +1,261 @@
-.navbar, footer{
-    background-color: rgba(82, 93, 128, 0.31);
+.navbar, footer {
+    background: linear-gradient(135deg, rgba(10, 14, 39, 0.95), rgba(26, 15, 58, 0.95));
+    backdrop-filter: blur(20px);
+    border-bottom: 2px solid var(--neon-cyan);
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.4), inset 0 1px 0 rgba(255, 16, 240, 0.2);
+    position: relative;
+    z-index: 100;
+}
+
+.navbar {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+    padding: 1rem 2rem;
+    gap: 2rem;
+}
+
+.navbar-brand {
+    color: var(--neon-cyan);
     display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-pink);
+}
+
+.navbar-brand:hover {
+    color: var(--neon-pink);
+    text-shadow: 0 0 15px var(--neon-pink), 0 0 30px var(--neon-cyan);
+    transform: scale(1.05);
+}
+
+.navbar-brand img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--neon-cyan);
+    box-shadow: 0 0 15px var(--neon-cyan), inset 0 0 15px rgba(0, 240, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.navbar-brand img:hover {
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 25px var(--neon-pink), inset 0 0 15px rgba(255, 16, 240, 0.3);
+}
+
+.navbar-brand h3 {
+    font-weight: 700;
+    font-size: 1.3rem;
+    padding-left: 1rem;
+    color: var(--neon-cyan);
+    letter-spacing: 1px;
+    margin: 0;
+    font-family: 'Orbitron', monospace;
+}
+
+.search-bar {
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(15, 21, 53, 0.7);
+    padding: 0.5rem;
+    border-radius: 0;
+    border: 2px solid var(--neon-cyan);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.3), inset 0 0 10px rgba(0, 240, 255, 0.1);
+}
+
+.navbar input, .navbar button {
+    padding: 0.75rem 1rem;
+    border-radius: 0;
+    border: none;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', monospace;
+}
+
+.navbar input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--neon-cyan);
+    min-width: 200px;
+    outline: none;
+    border-bottom: 2px solid var(--neon-cyan);
+    text-shadow: 0 0 5px var(--neon-cyan);
+
+    &::placeholder {
+        color: rgba(0, 240, 255, 0.5);
+    }
+
+    &:focus {
+        background: rgba(0, 240, 255, 0.1);
+        box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.3), 0 0 15px var(--neon-cyan);
+    }
+}
+
+.navbar button {
+    background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+    color: #000;
+    cursor: pointer;
+    font-weight: 700;
+    width: auto;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--neon-pink);
+    box-shadow: 0 0 15px var(--neon-pink), inset 0 0 10px rgba(255, 16, 240, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    &:hover {
+        background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+        box-shadow: 0 0 25px var(--neon-cyan), 0 0 20px var(--neon-pink);
+        transform: scale(1.05);
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+}
+
+.user-collection-btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
     align-items: center;
 }
 
-.navbar #cart-icon {
+.collection-icons {
     text-decoration: none;
-    color: black;
-    margin-right: 10px;
+    color: var(--neon-cyan);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    width: 40px;
+    height: 40px;
+
+    svg {
+        width: 25px;
+        height: 25px;
+        transition: all 0.3s ease;
+        filter: drop-shadow(0 0 8px var(--neon-cyan));
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: -5px;
+        border: 1px solid var(--neon-cyan);
+        opacity: 0;
+        transition: all 0.3s ease;
+        box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.3);
+    }
+
+    &:hover {
+        color: var(--neon-pink);
+        transform: scale(1.2);
+
+        svg {
+            filter: drop-shadow(0 0 15px var(--neon-pink));
+        }
+
+        &::before {
+            opacity: 1;
+            box-shadow: 0 0 20px var(--neon-pink), inset 0 0 10px rgba(255, 16, 240, 0.3);
+        }
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
 }
 
 footer {
     justify-content: center;
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+    margin-top: auto;
 }
 
 footer p {
-    color: black;
-    font-weight: bold;
-    font-size: large;
-    margin: 0px;
+    color: var(--neon-cyan);
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin: 0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px var(--neon-cyan);
+    font-family: 'Orbitron', monospace;
+    text-align: center;
 }
 
-.navbar-brand {
-    color: rgb(11, 9, 9);
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
+/* Responsive */
+@media (width < 1024px) {
+    .navbar {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .search-bar {
+        order: 3;
+        width: 100%;
+    }
+
+    .user-collection-btns {
+        order: 2;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        order: 1;
+    }
 }
 
-.navbar-brand span {
-    font-weight: bold;
-    font-size: xx-large;
-    padding-left: 8px;
-}
+@media (width < 768px) {
+    .navbar {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        padding: 0.75rem;
+    }
 
+    .navbar-brand h3 {
+        font-size: 1rem;
+    }
 
-@media (width < 768px){
-    
-    
+    .search-bar {
+        width: 100%;
+    }
+
+    .navbar input {
+        min-width: auto;
+    }
+
+    .user-collection-btns {
+        gap: 1.5rem;
+    }
+
+    .collection-icons {
+        width: 35px;
+        height: 35px;
+
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
 }

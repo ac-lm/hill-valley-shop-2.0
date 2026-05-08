@@ -1,33 +1,62 @@
-import { Component } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
+import { CurrencyPipe, NgIf } from '@angular/common';
 import { Product } from '../product-list/product-list';
 import { ModifyCartService } from '../services/modify-cart';
 
 @Component({
   selector: 'app-shopping-cart',
-  imports: [],
+  imports: [CurrencyPipe, NgIf],
   templateUrl: './shopping-cart.html',
-  styleUrl: './shopping-cart.css'
+  styleUrl: './shopping-cart.scss'
 })
 
-
-
 export class ShoppingCartComponent {
+  cartSignal = signal<Product[]>([]);
 
-  constructor(private modifyCart: ModifyCartService){
+  cartTotal = computed(() => {
+    return this.cartSignal().reduce((total, product) => {
+      return total + ((product.price || 0) * (product.quantity || 1));
+    }, 0);
+  });
+
+  cartItemCount = computed(() => {
+    return this.cartSignal().reduce((count, product) => {
+      return count + (product.quantity || 1);
+    }, 0);
+  });
+
+  constructor(private modifyCart: ModifyCartService) {
+    this.refreshCart();
   }
 
-  myProducts(){
-    return this.modifyCart.getBuyList();
+  private refreshCart() {
+    this.cartSignal.set([...this.modifyCart.getBuyList()]);
   }
-  
-  increaseQuantity(p: Product){
+
+  increaseQuantity(p: Product) {
     this.modifyCart.addItem(p);
+    this.refreshCart();
   }
 
-  decreaseQuantity(p: Product){
+  decreaseQuantity(p: Product) {
     this.modifyCart.removeItem(p);
+    this.refreshCart();
   }
 
-  
+  removeAll(p: Product) {
+    this.modifyCart.removeAllOcurrences(p);
+    this.refreshCart();
+  }
 
+  productSet() {
+    return this.cartSignal();
+  }
+
+  isCartEmpty() {
+    return this.cartSignal().length === 0;
+  }
 }
+
+
+
+

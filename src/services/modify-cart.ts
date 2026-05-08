@@ -7,7 +7,7 @@ import { Product } from '../product-list/product-list';
 
 export class ModifyCartService {
 
-  private buyList: Product[] = [];
+  private buyList: Map<number, Product> = new Map();
 
   constructor() {
     this.loadCart();
@@ -15,33 +15,80 @@ export class ModifyCartService {
 
 
   public addItem(p: Product) {
-    this.buyList.push(p);
+    const existing = this.buyList.get(p.id);
+    if (existing) {
+      existing.quantity = (existing.quantity || 1) + 1;
+    } else {
+      this.buyList.set(p.id, { ...p, quantity: 1 });
+    }
     this.saveCart();
   }
 
   public removeItem(p: Product) {
-    const index = this.buyList.findIndex(item => item.id === p.id);
-    if (index >= 0)
-      this.buyList.splice(index, 1)
+    const existing = this.buyList.get(p.id);
+    if (existing) {
+      if (existing.quantity && existing.quantity > 1) {
+        existing.quantity--;
+      } else {
+        this.buyList.delete(p.id);
+      }
+    }
     this.saveCart();
   }
 
   public numberOfItems() {
-    return this.buyList.length;
+    let total = 0;
+    this.buyList.forEach(product => {
+      total += product.quantity || 1;
+    });
+    return total;
   }
 
   public getBuyList() {
-    return [...this.buyList];
+    return Array.from(this.buyList.values());
   }
 
   private loadCart(): void {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
-      this.buyList = JSON.parse(savedCart);
+      try {
+        const parsed = JSON.parse(savedCart);
+        this.buyList.clear();
+        if (Array.isArray(parsed)) {
+          // Convertir array de la vieja estructura a Map
+          parsed.forEach((product: Product) => {
+            if (product.id) {
+              this.buyList.set(product.id, product);
+            }
+          });
+        } else if (typeof parsed === 'object') {
+          // Convertir objeto a Map
+          Object.values(parsed).forEach((product: any) => {
+            if (product.id) {
+              this.buyList.set(product.id, product);
+            }
+          });
+        }
+      } catch (e) {
+        console.error('Error loading cart:', e);
+        this.buyList.clear();
+      }
     }
   }
 
   private saveCart(): void {
-    localStorage.setItem('cart', JSON.stringify(this.buyList));
+    const products: {[key: number]: Product} = {};
+    this.buyList.forEach((value, key) => {
+      products[key] = value;
+    });
+    localStorage.setItem('cart', JSON.stringify(products));
   }
+
+
+  public removeAllOcurrences(p: Product){
+    this.buyList.delete(p.id);
+    this.saveCart();
+  }
+
+
 }

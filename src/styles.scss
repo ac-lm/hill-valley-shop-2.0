@@ -1,25 +1,143 @@
-body {
-    background-image: url('/img/t-3.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html,
+:root {
+    --neon-pink: #FF10F0;
+    --neon-cyan: #00F0FF;
+    --neon-purple: #B700FF;
+    --neon-yellow: #FFFF00;
+    --neon-orange: #FF6B00;
+    --neon-green: #39FF14;
+    --dark-bg: #0a0e27;
+    --card-bg: #0f1535;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0ff;
+    --border-color: #00F0FF;
+    --glow: 0 0 10px rgba(0, 240, 255, 0.5);
+    --glow-pink: 0 0 15px rgba(255, 16, 240, 0.6);
+    --glow-strong: 0 0 20px rgba(255, 16, 240, 0.8), 0 0 40px rgba(0, 240, 255, 0.6);
+}
+
 body {
+    background: linear-gradient(180deg, #0a0e27 0%, #1a0f3a 50%, #0f1535 100%);
+    background-attachment: fixed;
+    margin: 0;
+    font-family: 'Orbitron', 'Courier New', monospace;
+    color: var(--text-primary);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+
+    &::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: 
+            repeating-linear-gradient(
+                0deg,
+                rgba(255, 16, 240, 0.03) 0px,
+                transparent 1px,
+                transparent 2px,
+                rgba(255, 16, 240, 0.03) 3px
+            ),
+            repeating-linear-gradient(
+                90deg,
+                rgba(0, 240, 255, 0.03) 0px,
+                transparent 1px,
+                transparent 2px,
+                rgba(0, 240, 255, 0.03) 3px
+            );
+        background-size: 100% 3px, 3px 100%;
+        pointer-events: none;
+        z-index: -1;
+        animation: scanlines 8s linear infinite;
+    }
+
+    &::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(ellipse at 20% 50%, rgba(255, 16, 240, 0.05), transparent 50%),
+            radial-gradient(ellipse at 80% 80%, rgba(0, 240, 255, 0.05), transparent 50%);
+        pointer-events: none;
+        z-index: -1;
+    }
+}
+
+@keyframes scanlines {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 0 10px;
+    }
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    42% { opacity: 1; }
+    43% { opacity: 0.9; }
+    44% { opacity: 1; }
+    58% { opacity: 1; }
+    59% { opacity: 0.9; }
+    60% { opacity: 1; }
+}
+
+@keyframes glow-pulse {
+    0%, 100% { text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan); }
+    50% { text-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-pink); }
+}
+
+@keyframes neon-flicker {
+    0%, 100% { 
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.5), 0 0 20px rgba(255, 16, 240, 0.3);
+    }
+    50% { 
+        box-shadow: 0 0 20px rgba(0, 240, 255, 0.8), 0 0 40px rgba(255, 16, 240, 0.6);
+    }
+}
+
+html, body {
     height: 100%;
 }
 
-body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+main {
+    padding-bottom: 80px;
+    min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--card-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--neon-cyan), var(--neon-pink));
+    border-radius: 6px;
+    box-shadow: var(--glow-strong);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--neon-pink), var(--neon-cyan));
 }
 
 @media (width < 768px) {
-
     body {
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;
     }
-
 }
