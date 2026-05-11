@@ -33,9 +33,7 @@ export class ProductListComponent {
 
     {id: this.generateId(), name: "50's outfit", price: 15.99, image: '..//public/img/marty-mcfly-1955-jacket.jpg'},
 
-    {id: this.generateId(), name: 'Plutonium', price: 230.0, image: '..//public/img/Plutonium_Case.jpg'},
-
-    //{id: this.generateId(), name: 'test', price: 89.99, image: '..//public/img/test.jpg'}
+    {id: this.generateId(), name: 'Plutonium', price: 230.0, image: '..//public/img/Plutonium_Case.jpg'}
   ];
 
   constructor(private modifyCart: ModifyCartService, private snackBar: MatSnackBar, private router: Router) {}
