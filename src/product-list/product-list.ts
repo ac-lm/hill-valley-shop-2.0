@@ -24,16 +24,15 @@ export class ProductListComponent {
   private localId: number = 1;
 
   products: Product[] = [
-    {id: this.generateId(), name: "Flying hoverboard", price: 30.5, 
-    image: '..//public/img/Hoverboard.jpg'},
+    {id: this.generateId(), name: "Flying hoverboard", price: 30.5, image: 'img/Hoverboard.jpg'},
 
-    {id: this.generateId(), name: 'Flux Capacitor', price: 149.99, image: '..//public/img/flux-capacitor.jpg'},
+    {id: this.generateId(), name: 'Flux Capacitor', price: 149.99, image: 'img/flux-capacitor.jpg'},
   
-    {id: this.generateId(), name: 'Grays sports almanac', price: 20.0, image: '..//public/img/almanac.jpg'},
+    {id: this.generateId(), name: 'Grays sports almanac', price: 20.0, image: 'img/almanac.jpg'},
 
-    {id: this.generateId(), name: "50's outfit", price: 15.99, image: '..//public/img/marty-mcfly-1955-jacket.jpg'},
+    {id: this.generateId(), name: "50's outfit", price: 15.99, image: 'img/marty-mcfly-1955-jacket.jpg'},
 
-    {id: this.generateId(), name: 'Plutonium', price: 230.0, image: '..//public/img/Plutonium_Case.jpg'}
+    {id: this.generateId(), name: 'Plutonium', price: 230.0, image: 'img/Plutonium_Case.jpg'}
   ];
 
   constructor(private modifyCart: ModifyCartService, private snackBar: MatSnackBar, private router: Router) {}

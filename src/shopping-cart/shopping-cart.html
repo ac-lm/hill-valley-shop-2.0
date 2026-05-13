@@ -1,7 +1,7 @@
 <div class="cart-container">
     <div class="cart-header">
         <h1>Shopping Cart</h1>
-        <span class="item-count" *ngIf="!isCartEmpty()">{{ cartItemCount() }} items</span>
+        <span class="item-count" if="!isCartEmpty()">{{ cartItemCount() }} items</span>
     </div>
 
     @if (isCartEmpty()) {
@@ -16,8 +16,8 @@
     } @else {
         <div class="cart-content">
             <div class="cart-items">
-                @for (prod of productSet(); track prod.id) {
-                    <div class="cart-item-card" [@fadeInOut]>
+                @for (prod of cartSignal(); track prod.id) {
+                    <div class="cart-item-card">
                         <div class="item-image">
                             <img [src]="prod.image" [alt]="prod.name" class="product-img">
                         </div>

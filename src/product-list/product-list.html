@@ -2,7 +2,7 @@
     @for (p of products; track p.id){
         <div class="card">
             <div class="image-wrapper" [style.--bg-image]="'url(' + p.image + ')'">
-                <img class="card-img-top img-fluid" src={{p.image}} alt="Card image cap">
+                <img class="card-img-top img-fluid" src= {{p.image}} alt="Card image cap">
             </div>
             <div class="card-body">
                 <h5 class="card-title">{{p.name}}</h5>

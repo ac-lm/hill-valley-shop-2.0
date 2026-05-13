@@ -1,11 +1,11 @@
 import { Component, signal, computed } from '@angular/core';
-import { CurrencyPipe, NgIf } from '@angular/common';
+import { CurrencyPipe} from '@angular/common';
 import { Product } from '../product-list/product-list';
 import { ModifyCartService } from '../services/modify-cart';
 
 @Component({
   selector: 'app-shopping-cart',
-  imports: [CurrencyPipe, NgIf],
+  imports: [CurrencyPipe],
   templateUrl: './shopping-cart.html',
   styleUrl: './shopping-cart.scss'
 })
